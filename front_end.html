@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>  
+</head>
+<body>
+  <h1>Login</h1>
+  <form action="">
+    <label for="email">
+      email
+      <input type="email" id="email"></input>
+    </label>
+    <label for="password">
+      password
+      <input type="password" id="password"></input>
+    </label>
+    <button type="button">Cadastrar</button>
+    <h2 id="tokenElement"></h2>
+  </form>
+  <script>
+    const button = document.querySelector("button");
+    const funcFetch = async (password, email) => {
+      const token = await fetch("http://localhost:3000/",
+        {
+          method: "GET",
+          body: JSON.stringify({ email, password })
+        }
+      );
+      const tokenElement =  document.getElementById("#tokenElement");
+      tokenElement.innerText = JSON.parse(token) 
+    }
+    button.addEventListener("click", () => {
+      const password = document.querySelector("#password").value;
+      const email = document.querySelector("#email").value;
+      funcFetch(password, email);
+    })    
+  </script>
+</body>
+</html>
+
